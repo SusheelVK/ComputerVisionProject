@@ -1,0 +1,27 @@
+Create dataset
+python -m sigver.preprocessing.process_dataset --dataset <dataset_name> --path data/<dataset_folder_name> --save-path <dataset_name>_170_242.npz
+for dataset_name = cedar, BHSig260H, BHSig260B, iiser
+and dataset_folder_name = cedar_dataset, BHSig260-Hindi, BHSig260-Bengali
+
+Train writer-independent classifier
+python -m sigver.featurelearning.train --model signet --dataset-path  <data.npz> --users [first last] --model signet --epochs 60 --forg --lamb 0.95 --logdir signet_f_lamb0.95/<dataset_name>  
+
+Dataset 	 Users
+CEDAR   	 [0 55]
+BHSig260-Hindi	 [0 140]
+BHSig260-Bengali [0 100]
+
+Train writer-dependent classifiers
+python -m sigver.wd.test -m signet --model-path <path/to/trained_model> --data-path <path/to/data> --save-path <path/to/save> --exp-users [first last] --dev-users [first last] --gen-for-train 12
+
+Dataset 	 Exp Users  Dev Users
+CEDAR   	 [41 55]     [0 40] 
+BHSig260-Hindi	 [101 160]   [0 100]
+BHSig260-Bengali [61 100]    [0 60]
+
+The results given in the results are in the following pickle files:
+CEDAR - CEDAR55_40.pkl
+BHSig260-Hindi - BHSig260H140_100.pkl
+BHSig260-Bengali - BHSig260B100_60.pkl
+
+The code to preprocess the IISER signatures and perform the 34 class SVM classification is given in the IISER_SVM.ipynb notebook

@@ -1,0 +1,5 @@
+The following notebooks contain the code used to test the Siamese network:
+CEDAR - test_cedar.ipynb
+IISER - test_IISER.ipynb
+BHSig260Hindi - test_Sig260H.ipynb
+BHSig260Bengali - test_Sig260B.ipynb
